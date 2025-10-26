@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Create Employee</title>
+    <title>Edit Employee</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <style>
         body {
@@ -66,7 +66,7 @@
 </head>
 <body>
     <div class="container">
-        <h1>Add Employee</h1>
+        <h1>Edit Employee</h1>
 
         <!-- Display success or error message -->
         @if (session('success'))
@@ -84,31 +84,32 @@
             </div>
         @endif
 
-        <form action="{{ route('employees.store') }}" method="POST">
+        <form action="{{ route('employees.update', $employee->id) }}" method="POST">
             @csrf
+            @method('PUT')
 
             <label for="name">Name</label>
-            <input type="text" name="name" id="name" required>
+            <input type="text" name="name" id="name" value="{{ old('name', $employee->name) }}" required>
 
             <label for="designation">Designation</label>
-            <input type="text" name="designation" id="designation" required>
+            <input type="text" name="designation" id="designation" value="{{ old('designation', $employee->designation) }}" required>
 
             <label for="joining_date">Joining Date</label>
-            <input type="date" name="joining_date" id="joining_date" required>
+            <input type="date" name="joining_date" id="joining_date" value="{{ old('joining_date', $employee->joining_date) }}" required>
 
             <label for="salary">Salary</label>
-            <input type="number" name="salary" id="salary" step="0.01" required>
+            <input type="number" name="salary" id="salary" value="{{ old('salary', $employee->salary) }}" step="0.01" required>
 
             <label for="email">Email</label>
-            <input type="email" name="email" id="email">
+            <input type="email" name="email" id="email" value="{{ old('email', $employee->email) }}">
 
             <label for="mobile_no">Mobile No</label>
-            <input type="text" name="mobile_no" id="mobile_no" required>
+            <input type="text" name="mobile_no" id="mobile_no" value="{{ old('mobile_no', $employee->mobile_no) }}" required>
 
             <label for="address">Address</label>
-            <textarea name="address" id="address" required></textarea>
+            <textarea name="address" id="address" required>{{ old('address', $employee->address) }}</textarea>
 
-            <button type="submit">Save Employee</button>
+            <button type="submit">Update Employee</button>
         </form>
     </div>
 </body>
